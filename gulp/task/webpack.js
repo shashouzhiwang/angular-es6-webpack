@@ -10,7 +10,9 @@ var uglify = require('gulp-uglify');
 var config = require('../config');// gulp公共配置
 var plumber = require('gulp-plumber');// 报错不退出
 var rev = require('gulp-rev'); //- 对文件名加MD5后缀
-
+var filter = require('gulp-filter');
+var cssmin = require('gulp-cssmin');
+var jsFilter;
 exports.task = function () {
   gutil.log(gutil.colors.red(config.entry));
   return gulp.src(config.entry)

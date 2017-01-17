@@ -98,7 +98,9 @@ export default class comonSer {
         });
         this.$timeout(function(){$obj.hide();},500);
     }    
-
+    static newInstance ($http,$timeout,config) {
+        return new comonSer($http,$timeout,config);
+    }
 }
-
-comonSer.$inject = ["$http","$timeout","config"];
+comonSer.newInstance.$inject = ["$http","$timeout","config"];
+// comonSer.$inject = ["$http","$timeout","config"];

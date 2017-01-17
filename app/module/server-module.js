@@ -7,6 +7,6 @@ import memberSer from "./../server/member-ser";
 
 
 export default angular.module("main.ser", [])
-    .service("commonSer",commonSer)
+    .factory("commonSer",commonSer.newInstance)
     .service("memberSer",memberSer)
     .name;

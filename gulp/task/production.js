@@ -2,18 +2,22 @@
  * @file gulp任务copy test-data
  * @author loki luo
  */
+var webpack = require('webpack-stream');
 var gulp = require('gulp');
 var gutil = require('gulp-util');
+var uglify = require('gulp-uglify');
 var config = require('../config');// gulp公共配置
+var plumber = require('gulp-plumber');// 报错不退出
+var rev = require('gulp-rev'); //- 对文件名加MD5后缀
 
 exports.task = function () {
-    gulp.src(config.paths.data)
-    .pipe(gulp.dest(config.output+'/test-data'));
-
-    gulp.src(config.paths.lib)
-    .pipe(gulp.dest(config.output+'/lib'));
-
-	gulp.src(config.paths.img)
-    .pipe(gulp.dest(config.output+'/images'));
-
+  gutil.log(gutil.colors.red(config.entry));
+  return gulp.src(config.entry)
+    .pipe(plumber())
+    .pipe(webpack(require('../../webpack.config')))
+    // .pipe(uglify())
+    .pipe(rev())
+    .pipe(gulp.dest(config.output))
+    .pipe(rev.manifest())
+    .pipe(gulp.dest(config.output + '/rev/js'))
 };
